@@ -9,15 +9,66 @@ namespace gra
         private int gridX;
         private int gridY;
 
+        private int dydelfs;
+        private int szops;
+        private int krokodyle;
+        private Button[,] buttons;
+        private TableLayoutPanel gridView;
         public Form2(int x, int y)
         {
             InitializeComponent();
-            this.gridX = x;
-            this.gridY = y;
+            
             CreateGridView();
         }
+        public Form2(int dydelfs, int szops, int krokodyle)
+        {
+            InitializeComponent();
 
+            this.dydelfs = dydelfs;
+            this.szops = szops;
+            this.krokodyle = krokodyle;
+            //reateGridView();
+            // Dodajemy TableLayoutPanel do formularza
+            this.Controls.Add(gridView);
 
+            // Rozmieszczamy zwierzęta
+            PlaceAnimals();
+        }
+        private void PlaceAnimals()
+        {
+            // Lista wszystkich pozycji (komórek w gridzie)
+            var positions = Enumerable.Range(0, 25).OrderBy(x => Guid.NewGuid()).ToList();
+
+            // Umieszczanie Dydelfów
+            for (int i = 0; i < dydelfs; i++)
+            {
+                int pos = positions[i];
+                int row = pos / 5;  // Wyliczamy wiersz
+                int col = pos % 5;  // Wyliczamy kolumnę
+                buttons[row, col].Text = "Dydelf";
+                buttons[row, col].BackColor = Color.Green;
+            }
+
+            // Umieszczanie Szopów
+            for (int i = 0; i < szops; i++)
+            {
+                int pos = positions[dydelfs + i];
+                int row = pos / 5;
+                int col = pos % 5;
+                buttons[row, col].Text = "Szop";
+                buttons[row, col].BackColor = Color.Brown;
+            }
+
+            // Umieszczanie Krokodyli
+            for (int i = 0; i < krokodyle; i++)
+            {
+                int pos = positions[dydelfs + szops + i];
+                int row = pos / 5;
+                int col = pos % 5;
+                buttons[row, col].Text = "Krokodyl";
+                buttons[row, col].BackColor = Color.DarkGreen;
+            }
+        }
         private void CreateGridView()
         {
             // Tworzymy instancję TableLayoutPanel jako gridView
@@ -54,6 +105,20 @@ namespace gra
         {
             Button btn = sender as Button;
             MessageBox.Show($"Kliknięto przycisk w pozycji {btn.Tag}");
+           //utton btn = sender as Button;
+
+            // Jeśli jest puste pole
+            if (btn.Text == "")
+            {
+                btn.Text = "Puste pole";
+                btn.BackColor = Color.White;
+            }
+            // Jeśli kliknięto na zwierzę
+            else
+            {
+                MessageBox.Show($"Znalazłeś {btn.Text}!");
+            }
+       
         }
     }
 }

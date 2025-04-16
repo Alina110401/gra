@@ -36,6 +36,10 @@ namespace gra
             int x = int.Parse(comboBox1.SelectedItem.ToString());
             int y = int.Parse(comboBox2.SelectedItem.ToString());
 
+            int dydelfs = int.Parse(comboBox3.SelectedItem.ToString());  // Liczba Dydelfów
+            int szops = int.Parse(comboBox5.SelectedItem.ToString());   // Liczba Szopów
+            int krokodyle = int.Parse(comboBox4.SelectedItem.ToString());  // Liczba Krokodyli
+
             // Tworzymy nową instancję Form2 i przekazujemy wartości x i y
             Form2 form2 = new Form2(x, y);
             form2.Show();
