@@ -1,9 +1,9 @@
 namespace gra
 {
     public partial class Form1 : Form
-    {// Zmienna comboBox1 zadeklarowana w Form3
-        public ComboBox comboBox1;
-        public ComboBox comboBox2;
+    {
+        public ComboBox comboBox1 { get; set; } = new ComboBox();
+        public ComboBox comboBox2 { get; set; } = new ComboBox();
 
         public Form1()
         {
@@ -12,15 +12,22 @@ namespace gra
 
         private void Start_Click(object sender, EventArgs e)
         {
+            int x = 5;
+            int y = 5;
 
-            // Pobieramy wartoœci wybrane w ComboBox
-            int x = int.Parse(comboBox1.SelectedItem.ToString());
-            int y = int.Parse(comboBox2.SelectedItem.ToString());
+            if (comboBox1 != null && comboBox1.SelectedItem != null)
+            {
+                x = int.Parse(comboBox1.SelectedItem.ToString());
+            }
 
-            // Przekazujemy wartoœci x i y do Form2
+            if (comboBox2 != null && comboBox2.SelectedItem != null)
+            {
+                y = int.Parse(comboBox2.SelectedItem.ToString());
+            }
+
             Form2 form2 = new Form2(x, y);
             form2.Show();
-            this.Hide();  // Ukrywamy Form3 po otwarciu Form2
+            this.Hide();
         }
 
         private void Ustawienia_Click(object sender, EventArgs e)
@@ -35,3 +42,17 @@ namespace gra
         }
     }
 }
+        /*
+private void Ustawienia_Click(object sender, EventArgs e)
+        {
+            Form3 form3 = new Form3();
+            form3.Show();
+        }
+
+        private void Koniec_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+    }
+}
+        */
