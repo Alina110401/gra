@@ -37,7 +37,7 @@
             // 
             // timer1
             // 
-            timer1.Tick += timer1_Tick;
+           //imer1.Tick += timer1_Tick;
             // 
             // textBox1
             // 
