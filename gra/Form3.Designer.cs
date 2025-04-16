@@ -93,7 +93,7 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
+           //omboBox1.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
             comboBox1.Location = new Point(221, 125);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(116, 33);
@@ -102,7 +102,7 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-            comboBox2.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
+          //comboBox2.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
             comboBox2.Location = new Point(221, 206);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(116, 33);
