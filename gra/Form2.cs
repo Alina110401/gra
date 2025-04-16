@@ -14,12 +14,7 @@ namespace gra
         private int krokodyle;
         private Button[,] buttons;
         private TableLayoutPanel gridView;
-        public Form2(int x, int y)
-        {
-            InitializeComponent();
-            
-            CreateGridView();
-        }
+        // Konstruktor Form2 przyjmujący liczby zwierząt
         public Form2(int dydelfs, int szops, int krokodyle)
         {
             InitializeComponent();
@@ -27,15 +22,46 @@ namespace gra
             this.dydelfs = dydelfs;
             this.szops = szops;
             this.krokodyle = krokodyle;
-            //reateGridView();
-            // Dodajemy TableLayoutPanel do formularza
-            this.Controls.Add(gridView);
 
-            // Rozmieszczamy zwierzęta
-            PlaceAnimals();
+            CreateGridView();  // Tworzymy GridView po przekazaniu danych
+            PlaceAnimals();    // Rozmieszczamy zwierzęta na planszy
         }
         private void PlaceAnimals()
         {
+            int gridX = 5;  // Liczba wierszy
+            int gridY = 5;  // Liczba kolumn
+
+            // Tworzymy nowy TableLayoutPanel
+            gridView = new TableLayoutPanel
+            {
+                RowCount = gridX,
+                ColumnCount = gridY,
+                Dock = DockStyle.Fill,
+                AutoSize = true
+            };
+
+            buttons = new Button[gridX, gridY];  // Inicjalizacja tablicy przycisków
+
+            // Tworzymy przyciski w każdej komórce TableLayoutPanel
+            for (int i = 0; i < gridX; i++)
+            {
+                for (int j = 0; j < gridY; j++)
+                {
+                    Button btn = new Button
+                    {
+                        Size = new Size(50, 50),  // Rozmiar przycisku
+                        Tag = $"{i}-{j}",  // Tag z identyfikatorem pozycji
+                        BackColor = Color.Gray  // Kolor tła przycisku
+                    };
+
+                    btn.Click += Button_Click;
+                    buttons[i, j] = btn;  // Zapisujemy przycisk w odpowiednią komórkę tablicy
+                    gridView.Controls.Add(btn, j, i);  // Dodajemy przycisk do TableLayoutPanel
+                }
+            }
+
+            // Dodajemy TableLayoutPanel do formularza
+            this.Controls.Add(gridView);
             // Lista wszystkich pozycji (komórek w gridzie)
             var positions = Enumerable.Range(0, 25).OrderBy(x => Guid.NewGuid()).ToList();
 

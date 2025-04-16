@@ -4,7 +4,7 @@ namespace gra
     {
         public ComboBox comboBox1 { get; set; } = new ComboBox();
         public ComboBox comboBox2 { get; set; } = new ComboBox();
-
+        private int krokodyle = 0;
         public Form1()
         {
             InitializeComponent();
@@ -25,7 +25,7 @@ namespace gra
                 y = int.Parse(comboBox2.SelectedItem.ToString());
             }
 
-            Form2 form2 = new Form2(x, y);
+            Form2 form2 = new Form2(x, y, krokodyle);
             form2.Show();
             this.Hide();
         }

@@ -41,9 +41,9 @@ namespace gra
             int krokodyle = int.Parse(comboBox4.SelectedItem.ToString());  // Liczba Krokodyli
 
             // Tworzymy nową instancję Form2 i przekazujemy wartości x i y
-            Form2 form2 = new Form2(x, y);
+            Form2 form2 = new Form2(dydelfs, szops, krokodyle);  // Przekazujemy dane o zwierzętach
             form2.Show();
-            this.Hide();  // Ukrywamy Form3 po otwarciu Form2
+            this.Hide(); // Ukrywamy Form3 po otwarciu Form2
         }
     }
 }
