@@ -80,7 +80,6 @@
             label5.Size = new Size(92, 25);
             label5.TabIndex = 4;
             label5.Text = "Krokodyle";
-           //abel5.Click += label5_Click;
             // 
             // label6
             // 
@@ -99,7 +98,6 @@
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(116, 33);
             comboBox1.TabIndex = 6;
-            comboBox1.Click += btnStart_Click;
             // 
             // comboBox2
             // 
@@ -109,7 +107,6 @@
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(116, 33);
             comboBox2.TabIndex = 7;
-            comboBox2.Click += btnStart_Click;
             // 
             // textBox1
             // 
@@ -126,7 +123,6 @@
             label7.Size = new Size(20, 25);
             label7.TabIndex = 9;
             label7.Text = "s";
-          //label7.Click += label7_Click;
             // 
             // comboBox3
             // 
@@ -172,7 +168,6 @@
             label1.Size = new Size(71, 25);
             label1.TabIndex = 0;
             label1.Text = "plansza";
-           //abel1.Click += label1_Click;
             // 
             // button1
             // 
@@ -182,7 +177,7 @@
             button1.TabIndex = 14;
             button1.Text = "Akceptuj";
             button1.UseVisualStyleBackColor = true;
-          //button1.Click += Akceptuj_Click;
+            button1.Click += btnStart_Click;
             // 
             // Form3
             // 
