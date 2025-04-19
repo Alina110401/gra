@@ -6,145 +6,108 @@ namespace gra
 {
     public partial class Form2 : Form
     {
-        private int gridX;
-        private int gridY;
 
-        private int dydelfs;
-        private int szops;
-        private int krokodyle;
+
+        private int gridCols, gridRows;
+        private int numDydelfs, numSzops, numKrokodyle;
         private Button[,] buttons;
         private TableLayoutPanel gridView;
-        // Konstruktor Form2 przyjmujący liczby zwierząt
-        public Form2(int dydelfs, int szops, int krokodyle)
+
+        // Konstruktor przyjmujący wszystkie 5 parametrów
+
+        public Form2(int x, int y, int dydelfs, int szops, int krokodyle)
         {
-            InitializeComponent();
+            //InitializeComponent();
 
-            this.dydelfs = dydelfs;
-            this.szops = szops;
-            this.krokodyle = krokodyle;
+            // 1) Zapamiętaj parametry
+            gridCols = x;
+            gridRows = y;
+            numDydelfs = dydelfs;
+            numSzops = szops;
+            numKrokodyle = krokodyle;
 
-            CreateGridView();  // Tworzymy GridView po przekazaniu danych
-            PlaceAnimals();    // Rozmieszczamy zwierzęta na planszy
+            // 2) Zbuduj planszę i rozmieść zwierzęta
+            CreateGridView();
+            PlaceAnimals();
         }
-        private void PlaceAnimals()
-        {
-            int gridX = 5;  // Liczba wierszy
-            int gridY = 5;  // Liczba kolumn
 
-            // Tworzymy nowy TableLayoutPanel
-            gridView = new TableLayoutPanel
-            {
-                RowCount = gridX,
-                ColumnCount = gridY,
-                Dock = DockStyle.Fill,
-                AutoSize = true
-            };
-
-            buttons = new Button[gridX, gridY];  // Inicjalizacja tablicy przycisków
-
-            // Tworzymy przyciski w każdej komórce TableLayoutPanel
-            for (int i = 0; i < gridX; i++)
-            {
-                for (int j = 0; j < gridY; j++)
-                {
-                    Button btn = new Button
-                    {
-                        Size = new Size(50, 50),  // Rozmiar przycisku
-                        Tag = $"{i}-{j}",  // Tag z identyfikatorem pozycji
-                        BackColor = Color.Gray  // Kolor tła przycisku
-                    };
-
-                    btn.Click += Button_Click;
-                    buttons[i, j] = btn;  // Zapisujemy przycisk w odpowiednią komórkę tablicy
-                    gridView.Controls.Add(btn, j, i);  // Dodajemy przycisk do TableLayoutPanel
-                }
-            }
-
-            // Dodajemy TableLayoutPanel do formularza
-            this.Controls.Add(gridView);
-            // Lista wszystkich pozycji (komórek w gridzie)
-            var positions = Enumerable.Range(0, 25).OrderBy(x => Guid.NewGuid()).ToList();
-
-            // Umieszczanie Dydelfów
-            for (int i = 0; i < dydelfs; i++)
-            {
-                int pos = positions[i];
-                int row = pos / 5;  // Wyliczamy wiersz
-                int col = pos % 5;  // Wyliczamy kolumnę
-                buttons[row, col].Text = "Dydelf";
-                buttons[row, col].BackColor = Color.Green;
-            }
-
-            // Umieszczanie Szopów
-            for (int i = 0; i < szops; i++)
-            {
-                int pos = positions[dydelfs + i];
-                int row = pos / 5;
-                int col = pos % 5;
-                buttons[row, col].Text = "Szop";
-                buttons[row, col].BackColor = Color.Brown;
-            }
-
-            // Umieszczanie Krokodyli
-            for (int i = 0; i < krokodyle; i++)
-            {
-                int pos = positions[dydelfs + szops + i];
-                int row = pos / 5;
-                int col = pos % 5;
-                buttons[row, col].Text = "Krokodyl";
-                buttons[row, col].BackColor = Color.DarkGreen;
-            }
-        }
         private void CreateGridView()
         {
-            // Tworzymy instancję TableLayoutPanel jako gridView
-            TableLayoutPanel gridView = new TableLayoutPanel
+            gridView = new TableLayoutPanel
             {
-                RowCount = gridX,
-                ColumnCount = gridY,
+                RowCount = gridRows,
+                ColumnCount = gridCols,
                 Dock = DockStyle.Fill,
                 AutoSize = true
             };
 
-            // Dynamicznie tworzymy przyciski (lub inne kontrolki)
-            for (int i = 0; i < gridX; i++)
-            {
-                for (int j = 0; j < gridY; j++)
+            buttons = new Button[gridRows, gridCols];
+
+            for (int i = 0; i < gridRows; i++)
+                for (int j = 0; j < gridCols; j++)
                 {
-                    Button btn = new Button();
-                    btn.Size = new Size(50, 50);  // Ustawiamy rozmiar przycisku
-                    btn.Tag = $"{i}-{j}";  // Tag z identyfikatorem pozycji
-
-                    // Możesz dodać event kliknięcia, jeśli chcesz
+                    var btn = new Button
+                    {
+                        Size = new Size(50, 50),
+                        Tag = $"{i}-{j}",
+                        BackColor = Color.Gray
+                    };
                     btn.Click += Button_Click;
-
-                    // Dodajemy przycisk do gridView w odpowiednią komórkę
+                    buttons[i, j] = btn;
                     gridView.Controls.Add(btn, j, i);
                 }
+
+            this.Controls.Add(gridView);
+        }
+
+        private void PlaceAnimals()
+        {
+            var positions = Enumerable
+              .Range(0, gridRows * gridCols)
+              .OrderBy(_ => Guid.NewGuid())
+              .ToList();
+
+            // Dydelfy
+            for (int i = 0; i < numDydelfs; i++)
+            {
+                int pos = positions[i];
+                int r = pos / gridCols, c = pos % gridCols;
+                buttons[r, c].Text = "Dydelf";
+                buttons[r, c].BackColor = Color.Green;
             }
 
-            // Dodajemy gridView do Form2
-            this.Controls.Add(gridView);
+            // Szopy
+            for (int i = 0; i < numSzops; i++)
+            {
+                int pos = positions[numDydelfs + i];
+                int r = pos / gridCols, c = pos % gridCols;
+                buttons[r, c].Text = "Szop";
+                buttons[r, c].BackColor = Color.Brown;
+            }
+
+            // Krokodyle
+            for (int i = 0; i < numKrokodyle; i++)
+            {
+                int pos = positions[numDydelfs + numSzops + i];
+                int r = pos / gridCols, c = pos % gridCols;
+                buttons[r, c].Text = "Krokodyl";
+                buttons[r, c].BackColor = Color.DarkGreen;
+            }
         }
 
         private void Button_Click(object sender, EventArgs e)
         {
-            Button btn = sender as Button;
-            MessageBox.Show($"Kliknięto przycisk w pozycji {btn.Tag}");
-           //utton btn = sender as Button;
-
-            // Jeśli jest puste pole
-            if (btn.Text == "")
+            var btn = (Button)sender;
+            if (string.IsNullOrEmpty(btn.Text))
             {
                 btn.Text = "Puste pole";
                 btn.BackColor = Color.White;
             }
-            // Jeśli kliknięto na zwierzę
             else
             {
                 MessageBox.Show($"Znalazłeś {btn.Text}!");
             }
-       
         }
+
     }
 }

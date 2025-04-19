@@ -31,19 +31,23 @@ namespace gra
         }
 
         private void btnStart_Click(object sender, EventArgs e)
-        {
-            // Pobieramy wartości wybrane w ComboBox
-            int x = int.Parse(comboBox1.SelectedItem.ToString());
-            int y = int.Parse(comboBox2.SelectedItem.ToString());
+        { // 1) Odczytujemy rozmiar planszy z ComboBox‑ów
+            int x = comboBox1.SelectedItem != null
+                    ? int.Parse(comboBox1.SelectedItem.ToString())
+                    : 5;   // domyślnie 5
+            int y = comboBox2.SelectedItem != null
+                    ? int.Parse(comboBox2.SelectedItem.ToString())
+                    : 5;
 
-            int dydelfs = int.Parse(comboBox3.SelectedItem.ToString());  // Liczba Dydelfów
-            int szops = int.Parse(comboBox5.SelectedItem.ToString());   // Liczba Szopów
-            int krokodyle = int.Parse(comboBox4.SelectedItem.ToString());  // Liczba Krokodyli
+            // 2) Odczytujemy liczby zwierząt
+            int dydelfs = int.Parse(comboBox3.SelectedItem.ToString());
+            int szops = int.Parse(comboBox5.SelectedItem.ToString());
+            int krokodyle = int.Parse(comboBox4.SelectedItem.ToString());
 
-            // Tworzymy nową instancję Form2 i przekazujemy wartości x i y
-            Form2 form2 = new Form2(dydelfs, szops, krokodyle);  // Przekazujemy dane o zwierzętach
+            // 3) Tworzymy Form2 z przekazanymi wartościami
+            Form2 form2 = new Form2(x, y, dydelfs, szops, krokodyle);
             form2.Show();
-            this.Hide(); // Ukrywamy Form3 po otwarciu Form2
+            this.Hide();  // ukrywamy Form3
         }
 
         private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
