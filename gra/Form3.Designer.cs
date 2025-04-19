@@ -93,7 +93,6 @@
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
-           //omboBox1.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
             comboBox1.Location = new Point(221, 125);
             comboBox1.Name = "comboBox1";
             comboBox1.Size = new Size(116, 33);
@@ -102,7 +101,6 @@
             // comboBox2
             // 
             comboBox2.FormattingEnabled = true;
-          //comboBox2.Items.AddRange(new object[] { "3", "4", "5", "6", "7", "8", "9", "10" });
             comboBox2.Location = new Point(221, 206);
             comboBox2.Name = "comboBox2";
             comboBox2.Size = new Size(116, 33);
@@ -132,6 +130,7 @@
             comboBox3.Name = "comboBox3";
             comboBox3.Size = new Size(116, 33);
             comboBox3.TabIndex = 10;
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
             // 
             // comboBox4
             // 
@@ -141,6 +140,7 @@
             comboBox4.Name = "comboBox4";
             comboBox4.Size = new Size(116, 33);
             comboBox4.TabIndex = 11;
+            comboBox4.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
             // 
             // label8
             // 
@@ -159,6 +159,7 @@
             comboBox5.Name = "comboBox5";
             comboBox5.Size = new Size(116, 33);
             comboBox5.TabIndex = 13;
+            comboBox5.SelectedIndexChanged += comboBox5_SelectedIndexChanged;
             // 
             // label1
             // 
