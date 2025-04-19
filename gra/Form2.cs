@@ -49,8 +49,9 @@ namespace gra
                     var btn = new Button
                     {
                         Size = new Size(50, 50),
-                        Tag = $"{i}-{j}",
-                        BackColor = Color.Gray
+                        Tag = "Empty",         // domyślnie puste
+                        BackColor = Color.Gray,      // **szary kafelek**
+                        Text = ""               // bez tekstu
                     };
                     btn.Click += Button_Click;
                     buttons[i, j] = btn;
@@ -68,46 +69,62 @@ namespace gra
               .ToList();
 
             // Dydelfy
-            for (int i = 0; i < numDydelfs; i++)
+            for (int k = 0; k < numDydelfs; k++)
             {
-                int pos = positions[i];
+                int pos = positions[k];
                 int r = pos / gridCols, c = pos % gridCols;
-                buttons[r, c].Text = "Dydelf";
-                buttons[r, c].BackColor = Color.Green;
+                buttons[r, c].Tag = "Dydelf";
             }
 
             // Szopy
-            for (int i = 0; i < numSzops; i++)
+            for (int k = 0; k < numSzops; k++)
             {
-                int pos = positions[numDydelfs + i];
+                int pos = positions[numDydelfs + k];
                 int r = pos / gridCols, c = pos % gridCols;
-                buttons[r, c].Text = "Szop";
-                buttons[r, c].BackColor = Color.Brown;
+                buttons[r, c].Tag = "Szop";
             }
-
             // Krokodyle
-            for (int i = 0; i < numKrokodyle; i++)
+            for (int k = 0; k < numKrokodyle; k++)
             {
-                int pos = positions[numDydelfs + numSzops + i];
+                int pos = positions[numDydelfs + numSzops + k];
                 int r = pos / gridCols, c = pos % gridCols;
-                buttons[r, c].Text = "Krokodyl";
-                buttons[r, c].BackColor = Color.DarkGreen;
+                buttons[r, c].Tag = "Krokodyl";
             }
         }
 
-        private void Button_Click(object sender, EventArgs e)
+        
+          private void Button_Click(object sender, EventArgs e)
         {
             var btn = (Button)sender;
-            if (string.IsNullOrEmpty(btn.Text))
+            var content = (string)btn.Tag;
+
+            // Wyłączamy wielokrotne klikanie
+            btn.Click -= Button_Click;
+
+            switch (content)
             {
-                btn.Text = "Puste pole";
-                btn.BackColor = Color.White;
-            }
-            else
-            {
-                MessageBox.Show($"Znalazłeś {btn.Text}!");
+                case "Empty":
+                    btn.BackColor = Color.White;
+                    btn.Text = "";  // lub np. "·"
+                    break;
+
+                case "Dydelf":
+                    btn.BackColor = Color.Green;
+                    btn.Text = "🐬";  // albo "Dydelf"
+                    MessageBox.Show("Znalazłeś Dydelfa!");
+                    break;
+
+                case "Szop":
+                    btn.BackColor = Color.Brown;
+                    btn.Text = "🦝";  // albo "Szop"
+                    MessageBox.Show("Znalazłeś Szopa!");
+                    break;
+
+                case "Krokodyl":
+                    btn.BackColor = Color.DarkGreen;
+                    btn.Text = "🐊";  // albo "Krokodyl"
+                    MessageBox.Show("Uwaga! Krokodyl!");
+                    break;
             }
         }
-
-    }
-}
+    } }
